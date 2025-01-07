@@ -16,7 +16,7 @@ export function OrderTable() {
             </div>
             <Input
                placeholder='Pesquisar'
-               className='bg-gray-200'
+               className='bg-gray-200 dark:text-black'
             />
          </div>
 
