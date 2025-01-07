@@ -11,7 +11,7 @@ export const icons = {
 };
 
 export function Input({ className, type, ...rest }: InputProps) {
-   const Icon = icons[type as IconTypes] ?? Fragment;
+   const Icon = icons[type as IconTypes];
 
    const [isShowingPassword, setIsShowingPassword] = useState<boolean>(false);
 
@@ -27,16 +27,19 @@ export function Input({ className, type, ...rest }: InputProps) {
          <input
             type={type === 'password' && isShowingPassword ? 'text' : type}
             className={cn(
-               'bg-gray-100 text-sm border border-gray-300 rounded-lg h-9 pl-9 placeholder:text-sm placeholder:text-gray-500 w-full outline-none',
+               'bg-gray-100 text-sm border border-gray-300 rounded-lg h-9 placeholder:text-sm placeholder:text-gray-500 w-full outline-none',
+               type === 'email' || type === 'password' ? 'pl-9' : 'px-3',
                className,
             )}
             {...rest}
          />
 
-         <Icon
-            className='absolute top-0 text-gray-500 left-3 h-full'
-            size={17}
-         />
+         {Icon && (
+            <Icon
+               className='absolute top-0 text-gray-500 left-3 h-full'
+               size={17}
+            />
+         )}
 
          {type === 'password' &&
             (isShowingPassword ? (
