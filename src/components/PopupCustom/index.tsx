@@ -15,7 +15,7 @@ export function PopupCustom() {
                <strong>Status: </strong>Coletado
             </p>
 
-            <div className='flex flex-col gap-2 border-t p-2'>
+            <div className='flex flex-col gap-2 border-t p-2 h-44 overflow-y-scroll'>
                {statusArr.map((item) => (
                   <div
                      className='flex w-full gap-2'
@@ -25,7 +25,7 @@ export function PopupCustom() {
                         <div className='w-[2px] bg-blue-600 h-[50%]' />
                      </div>
                      <div className='bg-green-300 p-2 w-full rounded-xl'>
-                        <strong>{item.status}</strong>
+                        <strong>{item.status}:</strong>
 
                         <div className='flex gap-2 mt-3'>
                            <div className='flex gap-1 text-xs'>

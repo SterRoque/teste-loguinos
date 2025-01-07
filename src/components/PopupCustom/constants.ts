@@ -13,4 +13,16 @@ export const statusArr = [
       hour: '13:50',
       icon: CircleCheckBig,
    },
+   {
+      status: 'Coletado',
+      date: '30/12/2024',
+      hour: '13:50',
+      icon: CircleCheckBig,
+   },
+   {
+      status: 'Coletado',
+      date: '30/12/2024',
+      hour: '13:50',
+      icon: CircleCheckBig,
+   },
 ];
