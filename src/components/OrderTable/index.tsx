@@ -38,7 +38,7 @@ export function OrderTable() {
                   return (
                      <tr
                         key={item.id}
-                        className='border-b-2'>
+                        className='border-b-2  hover:bg-gray-200'>
                         <td className='py-2 text-left'>{item.id}</td>
                         <td className='py-2 text-left'>{item.name}</td>
                         <td className='py-2 text-left'>{item.date}</td>
