@@ -6,7 +6,7 @@ import { Sidebar } from '@/src/components/Sidebar';
 
 export default function Maps() {
    return (
-      <div className='bg-gray-100 h-full flex'>
+      <div className='bg-gray-100 h-full flex dark:bg-backgroundDark'>
          <Sidebar />
          <div className='w-full'>
             <Header />

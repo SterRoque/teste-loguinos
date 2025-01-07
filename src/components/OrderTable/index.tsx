@@ -6,7 +6,7 @@ import { Input } from '../Input';
 
 export function OrderTable() {
    return (
-      <div className='overflow-x-auto flex-1 shadow-xl rounded-xl z-50 px-4 border border-gray-300'>
+      <div className='bg-white flex-1 shadow-xl rounded-xl z-50 px-4 border border-gray-300 dark:bg-componentDark dark:border-slate-800 dark:text-white'>
          <div className='py-8 flex justify-between'>
             <div className='flex gap-2 w-40 '>
                <div className='text-white bg-blue-600 h-8 w-8 flex justify-center items-center rounded-lg'>
@@ -22,7 +22,7 @@ export function OrderTable() {
 
          <table className='w-full '>
             <thead className=''>
-               <tr className='border-b-2'>
+               <tr className='border-b-2 dark:border-slate-800'>
                   <th className='text-left py-3'>ID</th>
                   <th className='text-left py-3'>Cliente</th>
                   <th className='text-left py-3'>Data</th>
@@ -38,7 +38,7 @@ export function OrderTable() {
                   return (
                      <tr
                         key={item.id}
-                        className='border-b-2  hover:bg-gray-200'>
+                        className='border-b-2  hover:bg-gray-200 dark:hover:bg-backgroundDark dark:border-slate-800'>
                         <td className='py-2 text-left'>{item.id}</td>
                         <td className='py-2 text-left'>{item.name}</td>
                         <td className='py-2 text-left'>{item.date}</td>

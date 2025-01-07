@@ -4,6 +4,7 @@ import { cn } from '@/src/utils/cn';
 import { ChevronLeft, ChevronRight, PackageOpen } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { ThemeButton } from '../ThemeButton';
 
 export function Sidebar() {
    const [openSidebar, setOpenSidebar] = useState<boolean>();
@@ -15,7 +16,7 @@ export function Sidebar() {
    return (
       <div
          className={cn(
-            'min-h-screen bg-slate-900 transition-all duration-300 shadow-black shadow-md z-50',
+            'min-h-screen bg-slate-900 transition-all duration-300 shadow-black shadow-md z- dark:bg-componentDark',
             openSidebar ? 'w-60' : 'w-20',
          )}>
          <div
@@ -52,19 +53,15 @@ export function Sidebar() {
             </div>
          </div>
 
-         {/* Ajustado para rolar o conteúdo do sidebar */}
          <div
-            className={cn(
-               'flex flex-col px-2 mt-20 overflow-y-auto', // Adicionado overflow-y-auto para rolar
-               !openSidebar && 'px-4',
-            )}>
+            className={cn('flex flex-col px-2 mt-20 ', !openSidebar && 'px-4')}>
             {sidebarLinks.map((item) => (
                <Link
                   href={item.href}
                   key={item.name}
                   className={cn(
                      'flex w-full gap-4 text-white hover:bg-blue-600 h-9 pl-2 rounded-md items-center transition-all duration-300',
-                     !openSidebar && 'justify-center pl-0',
+                     !openSidebar && 'justify-center pl-0 gap-0',
                   )}>
                   <item.icon size={20} />
                   <span
@@ -76,6 +73,13 @@ export function Sidebar() {
                   </span>
                </Link>
             ))}
+         </div>
+         <div
+            className={cn(
+               'flex items-center px-2 w-full mt-20',
+               !openSidebar && 'justify-center',
+            )}>
+            <ThemeButton />
          </div>
       </div>
    );

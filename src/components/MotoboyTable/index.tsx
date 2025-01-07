@@ -1,19 +1,16 @@
-import { orderList } from '@/src/constants/order-list';
-import { cn } from '@/src/utils/cn';
-import { orderStatusFormatter } from '@/src/utils/order-status-formatter';
-import { Eye, Map, MapPin, Package } from 'lucide-react';
+import { Bike, Eye, MapPin } from 'lucide-react';
 import { Input } from '../Input';
 import { motoboyList } from '@/src/constants/motoboy-list';
 
 export function MotoboyTable() {
    return (
-      <div className='overflow-x-auto flex-1 shadow-xl rounded-xl z-50 px-4 border border-gray-300'>
+      <div className='bg-white flex-1 shadow-xl rounded-xl z-50 px-4 border border-gray-300 dark:bg-componentDark dark:text-white dark:border-slate-800'>
          <div className='py-8 flex justify-between'>
             <div className='flex gap-2 w-40 '>
                <div className='text-white bg-blue-600 h-8 w-8 flex justify-center items-center rounded-lg'>
-                  <Package size={20} />
+                  <Bike size={20} />
                </div>
-               <h1>Pedidos</h1>
+               <h1>Motoboy</h1>
             </div>
             <Input
                placeholder='Pesquisar'
@@ -23,7 +20,7 @@ export function MotoboyTable() {
 
          <table className='w-full '>
             <thead className=''>
-               <tr className='border-b-2'>
+               <tr className='border-b-2 dark:border-slate-800'>
                   <th className='text-left py-3'>#</th>
                   <th className='text-left py-3'>Nome</th>
                   <th className='text-center py-3'>Corridas</th>
@@ -36,11 +33,11 @@ export function MotoboyTable() {
                   return (
                      <tr
                         key={item.id}
-                        className='border-b-2  hover:bg-gray-200'>
+                        className='border-b-2  hover:bg-gray-200 dark:hover:bg-backgroundDark  dark:border-slate-800'>
                         <td className='py-2 text-left'>{item.id}</td>
                         <td className='py-2 text-left'>{item.name}</td>
                         <td className='py-2 text-left'>
-                           <div className='bg-gray-300 rounded-full px-2 py-1 text-center'>
+                           <div className='bg-gray-300 rounded-full px-2 py-1 text-center dark:text-black'>
                               {item.races}
                            </div>
                         </td>
