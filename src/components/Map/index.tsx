@@ -2,6 +2,8 @@
 import React, { useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { renderToString } from 'react-dom/server';
+import { PopupCustom } from '../PopupCustom';
 
 export function Map() {
    useEffect(() => {
@@ -13,7 +15,8 @@ export function Map() {
       }).addTo(map);
 
       const marker = L.marker([-23.55052, -46.633308]).addTo(map);
-      marker.bindPopup('<b>São Paulo</b><br>Este é um exemplo!').openPopup();
+      const popup = renderToString(<PopupCustom />);
+      marker.bindPopup(popup).openPopup();
 
       return () => {
          map.remove();
