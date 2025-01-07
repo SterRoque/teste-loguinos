@@ -26,7 +26,7 @@ export function Map() {
    return (
       <div
          id='map'
-         className='h-[350px] w-full rounded-xl shadow-xl'
+         className='h-[500px] w-full rounded-xl shadow-xl'
       />
    );
 }
