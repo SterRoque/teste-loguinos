@@ -9,9 +9,11 @@ export default function Maps() {
          <Sidebar />
          <div className='w-full'>
             <Header />
-            <main className='flex flex-col gap-4'>
-               <Map />
-               <div className='flex gap-4'>
+            <main className='px-4 flex flex-col gap-4'>
+               <div className='w-full rounded-xl border border-gray-300'>
+                  <Map />
+               </div>
+               <div className='flex gap-4 z-50 shadow-xl'>
                   <OrderTable />
                   <OrderTable />
                </div>
