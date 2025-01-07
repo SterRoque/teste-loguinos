@@ -11,10 +11,11 @@ export function Sidebar() {
    function handleToggleSidebar() {
       setOpenSidebar((prev) => !prev);
    }
+
    return (
       <div
          className={cn(
-            'h-screen bg-slate-900 transition-all duration-300 shadow-black shadow-md z-50',
+            'min-h-screen bg-slate-900 transition-all duration-300 shadow-black shadow-md z-50',
             openSidebar ? 'w-60' : 'w-20',
          )}>
          <div
@@ -50,8 +51,13 @@ export function Sidebar() {
                )}
             </div>
          </div>
+
+         {/* Ajustado para rolar o conteúdo do sidebar */}
          <div
-            className={cn('flex flex-col px-2 mt-20', !openSidebar && 'px-4')}>
+            className={cn(
+               'flex flex-col px-2 mt-20 overflow-y-auto', // Adicionado overflow-y-auto para rolar
+               !openSidebar && 'px-4',
+            )}>
             {sidebarLinks.map((item) => (
                <Link
                   href={item.href}
@@ -74,4 +80,3 @@ export function Sidebar() {
       </div>
    );
 }
-[];
