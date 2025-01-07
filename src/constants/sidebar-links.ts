@@ -9,7 +9,7 @@ import {
 export const sidebarLinks = [
    {
       name: 'Maps',
-      href: '#',
+      href: '/maps',
       icon: MapPin,
    },
    {

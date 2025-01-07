@@ -5,9 +5,11 @@ import { ChevronLeft, ChevronRight, PackageOpen } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ThemeButton } from '../ThemeButton';
+import { usePathname } from 'next/navigation';
 
 export function Sidebar() {
    const [openSidebar, setOpenSidebar] = useState<boolean>();
+   const pathname = usePathname();
 
    function handleToggleSidebar() {
       setOpenSidebar((prev) => !prev);
@@ -62,6 +64,7 @@ export function Sidebar() {
                   className={cn(
                      'flex w-full gap-4 text-white hover:bg-blue-600 h-9 pl-2 rounded-md items-center transition-all duration-300',
                      !openSidebar && 'justify-center pl-0 gap-0',
+                     pathname === item.href && 'bg-blue-600',
                   )}>
                   <item.icon size={20} />
                   <span
