@@ -25,10 +25,11 @@ export default function Home() {
                   Esqueceu sua senha?
                </Link>
             </div>
-            <button className='bg-blue-600 text-white rounded-lg h-9 mt-7 text-sm'>
-               Entrar
-            </button>
-
+            <Link href={'/maps'}>
+               <button className='w-full bg-blue-600 text-white rounded-lg h-9 mt-7 text-sm'>
+                  Entrar
+               </button>
+            </Link>
             <p className='text-xs text-center mt-7'>
                Ainda não tem uma conta?{' '}
                <Link
