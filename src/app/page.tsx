@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { loginService, LoginServiceData } from '../services/login-service';
+import { Button } from '../components/Button';
 
 export default function Home() {
    const [formData, setFormData] = useState<LoginServiceData>({
@@ -13,16 +14,20 @@ export default function Home() {
       password: '',
    });
    const [error, setError] = useState<string>('');
+   const [isLoading, setIsLoading] = useState<boolean>(false);
    const router = useRouter();
 
    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
       e.preventDefault();
 
       try {
+         setIsLoading(true);
          await loginService(formData);
          router.push('/maps');
       } catch (error) {
          setError('Email ou senha está incorreto');
+      } finally {
+         setIsLoading(false);
       }
    }
 
@@ -73,11 +78,11 @@ export default function Home() {
                </Link>
             </div>
 
-            <button
-               className='w-full bg-blue-600 text-white rounded-lg h-9 mt-7 text-sm'
-               type='submit'>
+            <Button
+               type='submit'
+               isLoading={isLoading}>
                Entrar
-            </button>
+            </Button>
 
             <p className='text-xs text-center mt-7'>
                Ainda não tem uma conta?{' '}
