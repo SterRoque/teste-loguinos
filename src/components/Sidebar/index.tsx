@@ -48,9 +48,9 @@ export function Sidebar() {
             </div>
             <div className='absolute -right-3'>
                {openSidebar ? (
-                  <ChevronRight className='text-white' />
-               ) : (
                   <ChevronLeft className='text-white' />
+               ) : (
+                  <ChevronRight className='text-white' />
                )}
             </div>
          </div>
