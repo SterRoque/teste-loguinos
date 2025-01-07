@@ -4,9 +4,12 @@ import { Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export function ThemeButton() {
-   const [darkMode, setDarkMode] = useState(() => {
-      return localStorage.getItem('theme') === 'dark';
-   });
+   const [darkMode, setDarkMode] = useState(false);
+
+   useEffect(() => {
+      const theme = localStorage.getItem('theme');
+      setDarkMode(theme === 'dark');
+   }, []);
 
    useEffect(() => {
       if (darkMode) {

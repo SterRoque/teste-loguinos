@@ -1,26 +1,30 @@
 'use client';
+
 import React, { useEffect } from 'react';
-import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { renderToString } from 'react-dom/server';
 import { PopupCustom } from '../PopupCustom';
 
 export function Map() {
    useEffect(() => {
-      const map = L.map('map').setView([-23.55052, -46.633308], 13);
+      if (typeof window === 'undefined') return;
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-         attribution:
-            '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
+      import('leaflet').then((L) => {
+         const map = L.map('map').setView([-23.55052, -46.633308], 13);
 
-      const marker = L.marker([-23.55052, -46.633308]).addTo(map);
-      const popup = renderToString(<PopupCustom />);
-      marker.bindPopup(popup).openPopup();
+         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution:
+               '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+         }).addTo(map);
 
-      return () => {
-         map.remove();
-      };
+         const marker = L.marker([-23.55052, -46.633308]).addTo(map);
+         const popup = renderToString(<PopupCustom />);
+         marker.bindPopup(popup).openPopup();
+
+         return () => {
+            map.remove();
+         };
+      });
    }, []);
 
    return (
