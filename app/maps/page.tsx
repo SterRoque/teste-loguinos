@@ -1,9 +1,6 @@
-'use client';
-
 import { Header } from '@/src/components/Header';
+import Map from '@/src/components/Map';
 import { Sidebar } from '@/src/components/Sidebar';
-import { cn } from '@/src/utils/cn';
-import { useState } from 'react';
 
 export default function Maps() {
    return (
@@ -11,7 +8,9 @@ export default function Maps() {
          <Sidebar />
          <div className='w-full'>
             <Header />
-            <main>conteudoooooooo</main>
+            <main>
+               <Map />
+            </main>
          </div>
       </div>
    );
