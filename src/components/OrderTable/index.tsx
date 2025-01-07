@@ -1,10 +1,25 @@
+'use client';
+
 import { orderList } from '@/src/constants/order-list';
 import { cn } from '@/src/utils/cn';
 import { orderStatusFormatter } from '@/src/utils/order-status-formatter';
 import { Eye, Package } from 'lucide-react';
 import { Input } from '../Input';
+import { useMemo, useState } from 'react';
+import { sanitizeString } from '@/src/utils/sanitize-string';
 
 export function OrderTable() {
+   const [inputSearchText, setInputSearchText] = useState<string>('');
+
+   const orderListFiltered = useMemo(() => {
+      return orderList.filter((item) => {
+         const sanitizedOrderName = sanitizeString(item.name);
+         const sanitizedInputSearchText = sanitizeString(inputSearchText);
+
+         return sanitizedOrderName.includes(sanitizedInputSearchText);
+      });
+   }, [inputSearchText]);
+
    return (
       <div className='bg-white flex-1 shadow-xl rounded-xl z-50 px-4 border border-gray-300 dark:bg-componentDark dark:border-slate-800 dark:text-white'>
          <div className='py-8 flex justify-between'>
@@ -15,6 +30,8 @@ export function OrderTable() {
                <h1>Pedidos</h1>
             </div>
             <Input
+               value={inputSearchText}
+               onChange={(e) => setInputSearchText(e.target.value)}
                placeholder='Pesquisar'
                className='bg-gray-200 dark:text-black'
             />
@@ -32,7 +49,7 @@ export function OrderTable() {
                </tr>
             </thead>
             <tbody>
-               {orderList.map((item) => {
+               {orderListFiltered.map((item) => {
                   const statusFormated = orderStatusFormatter(item.status);
 
                   return (

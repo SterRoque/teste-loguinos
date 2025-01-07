@@ -1,8 +1,21 @@
+'use client';
 import { Bike, Eye, MapPin } from 'lucide-react';
 import { Input } from '../Input';
 import { motoboyList } from '@/src/constants/motoboy-list';
+import { useMemo, useState } from 'react';
+import { sanitizeString } from '@/src/utils/sanitize-string';
 
 export function MotoboyTable() {
+   const [inputSearchText, setInputSearchText] = useState<string>('');
+
+   const motoboyListFiltered = useMemo(() => {
+      return motoboyList.filter((item) => {
+         const sanitizedMotoboyName = sanitizeString(item.name);
+         const sanitizedInputSearchText = sanitizeString(inputSearchText);
+
+         return sanitizedMotoboyName.includes(sanitizedInputSearchText);
+      });
+   }, [inputSearchText]);
    return (
       <div className='bg-white flex-1 shadow-xl rounded-xl z-50 px-4 border border-gray-300 dark:bg-componentDark dark:text-white dark:border-slate-800'>
          <div className='py-8 flex justify-between'>
@@ -13,6 +26,8 @@ export function MotoboyTable() {
                <h1>Motoboy</h1>
             </div>
             <Input
+               value={inputSearchText}
+               onChange={(e) => setInputSearchText(e.target.value)}
                placeholder='Pesquisar'
                className='bg-gray-200 dark:text-black'
             />
@@ -29,7 +44,7 @@ export function MotoboyTable() {
                </tr>
             </thead>
             <tbody>
-               {motoboyList.map((item) => {
+               {motoboyListFiltered.map((item) => {
                   return (
                      <tr
                         key={item.id}
