@@ -5,8 +5,9 @@ import { PackageOpen } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { loginService, LoginServiceData } from '../services/login-service';
-import { Button } from '../components/Button';
+import { loginService, LoginServiceData } from '../../services/login-service';
+import { Button } from '../../components/Button';
+import Cookies from 'js-cookie';
 
 export default function Home() {
    const [formData, setFormData] = useState<LoginServiceData>({
@@ -22,7 +23,8 @@ export default function Home() {
 
       try {
          setIsLoading(true);
-         await loginService(formData);
+         const data = await loginService(formData);
+         Cookies.set('token', data.token, { expires: 1 });
          router.push('/maps');
       } catch (error) {
          setError('Email ou senha está incorreto');

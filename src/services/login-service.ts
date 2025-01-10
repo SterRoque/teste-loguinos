@@ -1,3 +1,5 @@
+import { api } from '../lib/axios';
+
 export type LoginServiceData = {
    email: string;
    password: string;
@@ -5,16 +7,10 @@ export type LoginServiceData = {
 
 // Isto é um login fake provisório
 export async function loginService({ email, password }: LoginServiceData) {
-   return new Promise((resolve, reject) => {
-      setTimeout(() => {
-         if (email === 'teste@gmail.com' && password === 'teste123') {
-            resolve({
-               token: '123',
-            });
-            return;
-         }
-
-         reject();
-      }, 3000);
+   const { data } = await api.post('/auth', {
+      email,
+      password,
    });
+
+   return data;
 }
