@@ -1,4 +1,3 @@
-import { Layout } from '@/src/components/Layout';
 import { verifyAuthenticationService } from '@/src/services/verify-authentication-service';
 import { redirect } from 'next/navigation';
 
@@ -9,9 +8,9 @@ export default async function RootLayout({
 }>) {
    const isAuthenticated = await verifyAuthenticationService();
 
-   if (!isAuthenticated) {
-      return redirect('/');
+   if (isAuthenticated) {
+      return redirect('/maps');
    }
 
-   return <Layout>{children}</Layout>;
+   return children;
 }
