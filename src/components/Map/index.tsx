@@ -5,21 +5,35 @@ import 'leaflet/dist/leaflet.css';
 import { renderToString } from 'react-dom/server';
 import { PopupCustom } from '../PopupCustom';
 
-export function Map() {
+import dynamic from 'next/dynamic';
+import { IOrder } from '@/src/interfaces/order-interface';
+
+type MapProps = {
+   orders: IOrder[];
+};
+
+export function Map({ orders }: MapProps) {
    useEffect(() => {
       if (typeof window === 'undefined') return;
 
       import('leaflet').then((L) => {
-         const map = L.map('map').setView([-23.55052, -46.633308], 13);
+         const map = L.map('map').setView(
+            [orders[0].latitude, orders[0].latitude],
+            13,
+         );
 
          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution:
                '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
          }).addTo(map);
 
-         const marker = L.marker([-23.55052, -46.633308]).addTo(map);
-         const popup = renderToString(<PopupCustom />);
-         marker.bindPopup(popup).openPopup();
+         orders.forEach((order) => {
+            const marker = L.marker([order.latitude, order.longitude]).addTo(
+               map,
+            );
+            const popup = renderToString(<PopupCustom order={order} />);
+            marker.bindPopup(popup).openPopup();
+         });
 
          return () => {
             map.remove();

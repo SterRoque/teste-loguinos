@@ -7,13 +7,20 @@ import { Eye, Package } from 'lucide-react';
 import { Input } from '../Input';
 import { useMemo, useState } from 'react';
 import { sanitizeString } from '@/src/utils/sanitize-string';
+import { IOrder } from '@/src/interfaces/order-interface';
+import { formatId } from '@/src/utils/format-id';
+import { splitDateAndFormatTime } from '@/src/utils/split-date-and-format-time';
 
-export function OrderTable() {
+type OrderTableProps = {
+   orders: IOrder[];
+};
+
+export function OrderTable({ orders }: OrderTableProps) {
    const [inputSearchText, setInputSearchText] = useState<string>('');
 
    const orderListFiltered = useMemo(() => {
-      return orderList.filter((item) => {
-         const sanitizedOrderName = sanitizeString(item.name);
+      return orders.filter((item) => {
+         const sanitizedOrderName = sanitizeString(item.client.first_name);
          const sanitizedInputSearchText = sanitizeString(inputSearchText);
 
          return sanitizedOrderName.includes(sanitizedInputSearchText);
@@ -49,17 +56,25 @@ export function OrderTable() {
                </tr>
             </thead>
             <tbody>
-               {orderListFiltered.map((item) => {
-                  const statusFormated = orderStatusFormatter(item.status);
+               {orderListFiltered.map((order) => {
+                  const statusFormated = orderStatusFormatter(
+                     order.order_status[0].status,
+                  );
+
+                  const { date, time } = splitDateAndFormatTime(
+                     order.order_status[0].created_at,
+                  );
 
                   return (
                      <tr
-                        key={item.id}
+                        key={order.id}
                         className='border-b-2  hover:bg-gray-200 dark:hover:bg-backgroundDark dark:border-slate-800'>
-                        <td className='py-2 text-left'>{item.id}</td>
-                        <td className='py-2 text-left'>{item.name}</td>
-                        <td className='py-2 text-left'>{item.date}</td>
-                        <td className='py-2 text-left'>{item.hour}</td>
+                        <td className='py-2 text-left'>{formatId(order.id)}</td>
+                        <td className='py-2 text-left'>
+                           {order.client.first_name} {order.client.last_name}
+                        </td>
+                        <td className='py-2 text-left'>{date}</td>
+                        <td className='py-2 text-left'>{time}</td>
                         <td className='py-2 text-center'>
                            <div
                               className={cn(
