@@ -62,8 +62,8 @@ export function Sidebar() {
                   href={item.href}
                   key={item.name}
                   className={cn(
-                     'flex w-full gap-4 text-white hover:bg-blue-600 h-9 pl-2 rounded-md items-center transition-all duration-300',
-                     !openSidebar && 'justify-center pl-0 gap-0',
+                     'flex w-full gap-4 text-white hover:bg-blue-600 h-9 rounded-md items-center transition-all duration-300',
+                     !openSidebar ? 'justify-center p-0' : 'pl-2',
                      pathname === item.href && 'bg-blue-600',
                   )}>
                   <item.icon size={20} />
