@@ -1,16 +1,22 @@
 'use client';
 import { Bike, Eye, MapPin } from 'lucide-react';
 import { Input } from '../Input';
-import { motoboyList } from '@/src/constants/motoboy-list';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { sanitizeString } from '@/src/utils/sanitize-string';
+import { getDeliveriesService } from '@/src/services/get-deliveries-service';
+import { IDelivery } from '@/src/interfaces/delivery-interface';
+import { formatId } from '@/src/utils/format-id';
 
-export function MotoboyTable() {
+type MotoboyTableProps = {
+   deliveries: IDelivery[];
+};
+
+export function MotoboyTable({ deliveries = [] }: MotoboyTableProps) {
    const [inputSearchText, setInputSearchText] = useState<string>('');
 
    const motoboyListFiltered = useMemo(() => {
-      return motoboyList.filter((item) => {
-         const sanitizedMotoboyName = sanitizeString(item.name);
+      return deliveries.filter((item) => {
+         const sanitizedMotoboyName = sanitizeString(item.first_name);
          const sanitizedInputSearchText = sanitizeString(inputSearchText);
 
          return sanitizedMotoboyName.includes(sanitizedInputSearchText);
@@ -49,14 +55,18 @@ export function MotoboyTable() {
                      <tr
                         key={item.id}
                         className='border-b-2  hover:bg-gray-200 dark:hover:bg-backgroundDark  dark:border-slate-800'>
-                        <td className='py-2 text-left'>{item.id}</td>
-                        <td className='py-2 text-left'>{item.name}</td>
+                        <td className='py-2 text-left'>{formatId(item.id)}</td>
+                        <td className='py-2 text-left'>
+                           {item.first_name} {item.last_name}
+                        </td>
                         <td className='py-2 text-left'>
                            <div className='bg-gray-300 rounded-full px-2 py-1 text-center dark:text-black'>
-                              {item.races}
+                              {item.delivered_orders} / {item.total_orders}
                            </div>
                         </td>
-                        <td className='py-2 text-center'>{item.reviews}</td>
+                        <td className='py-2 text-center'>
+                           {item.avarage_stars}
+                        </td>
 
                         <td className='px-6 py-3 text-center flex justify-center items-center gap-2'>
                            <div className='bg-blue-600 h-7 w-7 text-white flex self-center items-center justify-center rounded-lg cursor-pointer transition-transform transform hover:scale-110'>
