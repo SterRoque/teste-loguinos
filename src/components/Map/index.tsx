@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import 'leaflet/dist/leaflet.css';
 import { renderToString } from 'react-dom/server';
 import { PopupCustom } from '../PopupCustom';
-
 import dynamic from 'next/dynamic';
 import { IOrder } from '@/src/interfaces/order-interface';
 
@@ -18,7 +17,7 @@ export function Map({ orders }: MapProps) {
 
       import('leaflet').then((L) => {
          const map = L.map('map').setView(
-            [orders[0].latitude, orders[0].latitude],
+            [orders[0].latitude, orders[0].longitude],
             13,
          );
 
@@ -32,14 +31,14 @@ export function Map({ orders }: MapProps) {
                map,
             );
             const popup = renderToString(<PopupCustom order={order} />);
-            marker.bindPopup(popup).openPopup();
+            marker.bindPopup(popup);
          });
 
          return () => {
             map.remove();
          };
       });
-   }, []);
+   }, [orders]);
 
    return (
       <div
@@ -48,3 +47,5 @@ export function Map({ orders }: MapProps) {
       />
    );
 }
+
+export const DynamicMap = dynamic(() => Promise.resolve(Map), { ssr: false });
